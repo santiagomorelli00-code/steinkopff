@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regressbearbeitung · Steinkopff &amp; Steinkopff Rechtsanwälte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #A8192A; --red-hover: #C41F30; --red-border: rgba(168,25,42,0.28);
+      --red-section: #8C1220; --dark: #0f1115; --white: #ffffff;
+      --off-white: #f7f4f0; --light-warm: #f0ece6;
+      --text: #000000; --text-muted: #000000; --border: #e0dad3;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-w: 1200px; --nav-h: 84px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); display: flex; align-items: center; padding: 0 64px; background: rgba(255,255,255,0.97); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo { display: inline-flex; align-items: center; margin-right: auto; text-decoration: none; line-height: 0; }
+    .nav-logo-image { display: block; width: auto; height: clamp(46px,3.8vw,60px); filter: none; }
+    .nav-links { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-muted); transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-btn { margin-left: 8px; padding: 10px 24px; border: 1px solid var(--red-border); color: var(--red) !important; font-size: 11px !important; letter-spacing: 0.14em !important; transition: background 0.25s, color 0.25s !important; }
+    .nav-btn:hover { background: var(--red) !important; color: #fff !important; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 1px; background: var(--text); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--dark); z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 48px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--serif); font-size: 34px; font-weight: 300; color: rgba(255,255,255,0.85); text-decoration: none; }
+    .mobile-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+
+    .page-header { padding-top: var(--nav-h); background: var(--dark); position: relative; overflow: hidden; }
+    .page-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.82); z-index: 0; }
+    .page-overlay { position: absolute; inset: 0; background: rgba(10,10,15,0.60); z-index: 1; }
+    .page-header-inner { max-width: var(--max-w); margin: 0 auto; padding: 88px 64px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; position: relative; z-index: 2; }
+    .back-link { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; text-decoration: none; margin-bottom: 48px; transition: color 0.2s; }
+    .back-link:hover { color: rgba(255,255,255,0.8); }
+    .back-link::before { content: '←'; font-size: 13px; letter-spacing: 0; }
+    .header-num { font-family: var(--serif); font-size: 120px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: -16px; user-select: none; }
+    .header-title { font-family: var(--serif); font-size: clamp(44px,5.5vw,76px); font-weight: 300; color: #fff; letter-spacing: 0.01em; line-height: 1.06; margin-bottom: 24px; }
+    .header-divider { width: 44px; height: 2px; background: rgba(255,255,255,0.35); margin-bottom: 24px; }
+    .header-tagline { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.85; }
+    .header-aside { padding-bottom: 8px; }
+    .header-aside-label { font-size: 9px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #fff; margin-bottom: 20px; display: block; }
+    .scope-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .scope-list li { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 14px; }
+    .scope-list li::before { content: ''; display: block; width: 20px; height: 1px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+
+    .intro-section { background: var(--white); padding: 100px 64px; }
+    .intro-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 5fr 6fr; gap: 96px; align-items: start; }
+    .sec-label { font-size: 10px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 14px; }
+    .sec-heading { font-family: var(--serif); font-size: clamp(28px,3.2vw,44px); font-weight: 300; line-height: 1.18; color: var(--text); margin-bottom: 28px; }
+    .sec-text p { font-size: 15px; font-weight: 300; line-height: 1.9; color: var(--text-muted); margin-bottom: 18px; }
+    .sec-text p:last-child { margin-bottom: 0; }
+
+    .services-grid { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .service-card { background: var(--white); padding: 26px 28px; display: flex; gap: 22px; align-items: flex-start; transition: background 0.2s; }
+    .service-card:hover { background: var(--off-white); }
+    .service-icon { width: 36px; height: 36px; border: 1px solid var(--red-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .service-icon span { font-family: var(--serif); font-size: 14px; font-weight: 400; color: var(--red); }
+    .service-body { flex: 1; }
+    .service-title { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--text); margin-bottom: 6px; }
+    .service-desc { font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.7; }
+
+    .team-section { background: var(--off-white); padding: 100px 64px; }
+    .team-inner { max-width: var(--max-w); margin: 0 auto; }
+    .team-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 28px; max-width: 760px; margin-top: 52px; }
+    .team-card { background: var(--white); border: 1px solid var(--border); overflow: hidden; text-decoration: none; color: inherit; display: block; transition: transform 0.35s, box-shadow 0.35s; }
+    .team-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.08); }
+    .team-portrait { aspect-ratio: 3/4; overflow: hidden; }
+    .team-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .team-info { padding: 22px 26px 26px; border-top: 1px solid var(--border); }
+    .team-name { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+    .team-role { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .team-link { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); transition: color 0.2s; }
+    .team-card:hover .team-link { color: var(--red); }
+
+    .other-section { background: var(--red-section); padding: 100px 64px; }
+    .other-inner { max-width: var(--max-w); margin: 0 auto; }
+    .other-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.05); margin-top: 52px; }
+    .other-card { background: rgba(255,255,255,0.02); padding: 36px 28px; transition: background 0.25s; text-decoration: none; display: block; }
+    .other-card:hover { background: rgba(255,255,255,0.05); }
+    .other-num { font-family: var(--serif); font-size: 36px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: 16px; user-select: none; }
+    .other-title { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 10px; }
+    .other-desc { font-size: 12px; font-weight: 300; color: #fff; line-height: 1.75; }
+    .other-arrow { font-size: 11px; color: var(--red); margin-top: 18px; display: block; letter-spacing: 0.06em; }
+    .other-section .sec-label, .other-section .other-title, .other-section .other-desc, .other-section .other-arrow { color: #fff !important; }
+
+    .contact-section { background: var(--red-section); padding: 88px 64px; }
+    .contact-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+    .contact-sub { font-size: 14px; font-weight: 300; color: #fff; line-height: 1.8; max-width: 400px; margin-top: 12px; }
+    .contact-section .sec-label,
+    .contact-section .sec-heading { color: #fff; }
+    .contact-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-white { padding: 15px 40px; background: #fff; color: #000; font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: background 0.25s, transform 0.25s; }
+    .btn-white:hover { background: var(--off-white); transform: translateY(-2px); }
+    .btn-ghost-w { padding: 15px 40px; border: 1px solid #fff; color: #fff; font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: border-color 0.25s, color 0.25s, transform 0.25s; }
+    .btn-ghost-w:hover { border-color: #fff; color: #fff; transform: translateY(-2px); }
+
+    footer { background: #080a0e; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; padding: 44px 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-brand { display: inline-flex; align-items: center; text-decoration: none; line-height: 0; }
+    .footer-brand img { display: block; width: auto; height: clamp(56px,5vw,80px); filter: brightness(0) invert(1); }
+    .footer-links { display: flex; gap: 30px; list-style: none; }
+    .footer-links a { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bar { background: #080a0e; padding: 13px 64px; }
+    .footer-bar-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: flex-end; }
+    .footer-copy { font-size: 10px; color: #fff; letter-spacing: 0.06em; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 28px; } .nav-links { display: none; } .hamburger { display: flex; }
+      .page-header-inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 28px 60px; }
+      .header-num { font-size: 72px; }
+      .intro-section, .team-section, .other-section, .contact-section { padding: 72px 28px; }
+      .intro-inner { grid-template-columns: 1fr; gap: 52px; }
+      .other-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; max-width: 320px; }
+      .footer-inner { padding: 36px 28px; } .footer-bar { padding: 13px 28px; }
+    }
+    /* ── Nav Dropdowns ── */
+    .has-dropdown { position: relative; }
+    .has-dropdown > a { display: inline-flex; align-items: center; gap: 6px; }
+    .has-dropdown > a::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); opacity: 0.65; transition: transform 0.22s, opacity 0.22s; }
+    .has-dropdown::after { content: ''; position: absolute; top: 100%; left: -18px; right: -18px; height: 18px; }
+    .nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; z-index: 300; min-width: 238px; padding: 8px; background: rgba(255,255,255,0.98); border: 1px solid rgba(168,25,42,0.16); box-shadow: 0 18px 50px rgba(0,0,0,0.14); opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(-50%) translateY(8px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; }
+    .has-dropdown:hover .nav-dropdown, .has-dropdown:focus-within .nav-dropdown { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .has-dropdown:hover > a::after, .has-dropdown:focus-within > a::after { transform: rotate(45deg) translateY(1px); opacity: 1; }
+    .nav-dropdown a { display: flex; align-items: center; min-height: 38px; padding: 10px 14px; font-size: 10px !important; font-weight: 500 !important; letter-spacing: 0.13em !important; text-transform: uppercase !important; color: #000 !important; text-decoration: none; white-space: nowrap; transition: color 0.2s, background 0.2s, padding-left 0.2s; border-bottom: 1px solid #f0ece6; }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover, .nav-dropdown a:focus { color: #A8192A !important; background: #f7f4f0; padding-left: 18px; outline: none; }
+    .m-sub { font-size: 20px !important; opacity: 0.5; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="img/log-transparent.png" alt="" class="nav-logo-image"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Start</a></li>
+      <li class="has-dropdown">
+        <a href="index.html#fachgebiete" class="active">Fachgebiete</a>
+        <div class="nav-dropdown">
+          <a href="arbeitsrecht.html">Arbeitsrecht</a>
+          <a href="verkehrsrecht.html">Verkehrsrecht</a>
+          <a href="betrugsabwehr.html">Betrugsabwehr</a>
+          <a href="regressbearbeitung.html">Regressbearbeitung</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="index.html#team">Anwälte</a>
+        <div class="nav-dropdown">
+          <a href="tilman-steinkopff.html">Tilman Steinkopff</a>
+          <a href="manuela-steinkopff.html">Manuela Steinkopff</a>
+        </div>
+      </li>
+      <li><a href="ueber-uns.html">Über uns</a></li>
+      <li><a href="kontakt.html" class="nav-btn">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="index.html" class="m-link">Start</a>
+    <a href="index.html#fachgebiete" class="m-link">Fachgebiete</a>
+    <a href="arbeitsrecht.html" class="m-link m-sub">Arbeitsrecht</a>
+    <a href="verkehrsrecht.html" class="m-link m-sub">Verkehrsrecht</a>
+    <a href="betrugsabwehr.html" class="m-link m-sub">Betrugsabwehr</a>
+    <a href="regressbearbeitung.html" class="m-link m-sub">Regressbearbeitung</a>
+    <a href="index.html#team" class="m-link">Anwälte</a>
+    <a href="tilman-steinkopff.html" class="m-link m-sub">Tilman Steinkopff</a>
+    <a href="manuela-steinkopff.html" class="m-link m-sub">Manuela Steinkopff</a>
+    <a href="ueber-uns.html" class="m-link">Über uns</a>
+    <a href="kontakt.html" class="m-link">Kontakt</a>
+  </div>
+
+  <div class="page-header">
+    <video class="page-video" autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+    <div class="page-overlay"></div>
+    <div class="page-header-inner">
+      <div>
+        <a href="index.html#fachgebiete" class="back-link">Alle Fachgebiete</a>
+        <div class="header-num">04</div>
+        <h1 class="header-title">Regress­bearbeitung</h1>
+        <div class="header-divider"></div>
+        <p class="header-tagline">Forderungsprüfung und Geltendmachung von Regressansprüchen nach Versicherungsablehnung — effizient, präzise und rechtssicher.</p>
+      </div>
+      <div class="header-aside">
+        <span class="header-aside-label">Leistungsübersicht</span>
+        <ul class="scope-list">
+          <li>Regressansprüche nach Ablehnung</li>
+          <li>Forderungsprüfung &amp; Durchsetzung</li>
+          <li>Gerichtliche Geltendmachung</li>
+          <li>Haftungsrückgriff</li>
+          <li>Verjährungsmanagement</li>
+          <li>Vollstreckung &amp; Zwangsvollstreckung</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section class="intro-section">
+    <div class="intro-inner">
+      <div class="reveal">
+        <span class="sec-label">Unser Ansatz</span>
+        <h2 class="sec-heading">Regressansprüche konsequent und rechtssicher durchsetzen.</h2>
+        <div class="sec-text">
+          <p>Wenn Versicherungsgesellschaften berechtigte Ansprüche ablehnen oder Schadensersatzverpflichtungen auf Dritte übergehen, ist eine präzise rechtliche Prüfung und entschlossenes Handeln gefragt.</p>
+          <p>Steinkopff &amp; Steinkopff analysiert Regresssachverhalte systematisch, prüft die Erfolgsaussichten einer Geltendmachung und setzt berechtigte Forderungen außergerichtlich und gerichtlich mit größtmöglicher Effizienz durch.</p>
+        </div>
+      </div>
+      <div class="reveal d1">
+        <span class="sec-label">Leistungen im Detail</span>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon"><span>I</span></div>
+            <div class="service-body">
+              <div class="service-title">Forderungsprüfung</div>
+              <div class="service-desc">Sorgfältige Analyse des Sachverhalts, Prüfung von Haftungsgrundlage, Anspruchshöhe und Durchsetzbarkeit vor Einleitung rechtlicher Schritte.</div>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><span>II</span></div>
+            <div class="service-body">
+              <div class="service-title">Außergerichtliche Geltendmachung</div>
+              <div class="service-desc">Strukturierte Anspruchsdurchsetzung durch Mahnschreiben, Verhandlung und außergerichtliche Einigung zur Kosten- und Zeitersparnis.</div>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><span>III</span></div>
+            <div class="service-body">
+              <div class="service-title">Gerichtliche Durchsetzung</div>
+              <div class="service-desc">Vollständige Prozessvertretung bei gerichtlicher Geltendmachung von Rückgriffsansprüchen — zielgerichtet und kosteneffizient.</div>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><span>IV</span></div>
+            <div class="service-body">
+              <div class="service-title">Haftungsrückgriff</div>
+              <div class="service-desc">Rückgriffsansprüche gegen Schädiger, Gesamtschuldner und Haftpflichtige nach erfolgter Leistung der Versicherung.</div>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><span>V</span></div>
+            <div class="service-body">
+              <div class="service-title">Verjährungsmanagement</div>
+              <div class="service-desc">Rechtzeitige Hemmung und Unterbrechung von Verjährungsfristen zur Sicherung aller Regressansprüche.</div>
+            </div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><span>VI</span></div>
+            <div class="service-body">
+              <div class="service-title">Zwangsvollstreckung</div>
+              <div class="service-desc">Vollstreckung rechtskräftiger Titel einschließlich Pfändungs- und Überweisungsbeschlüsse sowie Immobiliarvollstreckung.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="team-inner">
+      <div class="reveal">
+        <span class="sec-label">Ihre Ansprechpartner</span>
+        <h2 class="sec-heading">Unsere Anwälte für<br>Regressbearbeitung</h2>
+      </div>
+      <div class="team-grid">
+        <a href="tilman-steinkopff.html" class="team-card reveal d1">
+          <div class="team-portrait" style="background:#e8d5b7;">
+            <img src="img/hr-st.png" alt="Tilman Steinkopff">
+          </div>
+          <div class="team-info">
+            <div class="team-name">Tilman Steinkopff</div>
+            <div class="team-role">Rechtsanwalt · Arbeitsrecht</div>
+            <span class="team-link">Zum Profil →</span>
+          </div>
+        </a>
+        <a href="manuela-steinkopff.html" class="team-card reveal d2">
+          <div class="team-portrait" style="background:#d4c8ba;">
+            <img src="img/fr-st.png" alt="Manuela Steinkopff">
+          </div>
+          <div class="team-info">
+            <div class="team-name">Manuela Steinkopff</div>
+            <div class="team-role">Rechtsanwältin · Arbeitsrecht</div>
+            <span class="team-link">Zum Profil →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="other-section">
+    <div class="other-inner">
+      <div class="reveal">
+        <span class="sec-label">Weitere Fachgebiete</span>
+        <h2 class="sec-heading" style="color:#fff;">Auch in diesen<br>Bereichen tätig</h2>
+      </div>
+      <div class="other-grid">
+        <a href="arbeitsrecht.html" class="other-card reveal d1">
+          <div class="other-num">01</div>
+          <div class="other-title">Arbeitsrecht</div>
+          <div class="other-desc">Beratung und Vertretung für Arbeitgeber und Arbeitnehmer in allen arbeitsrechtlichen Fragen.</div>
+          <span class="other-arrow">Mehr erfahren →</span>
+        </a>
+        <a href="verkehrsrecht.html" class="other-card reveal d2">
+          <div class="other-num">02</div>
+          <div class="other-title">Verkehrsrecht</div>
+          <div class="other-desc">Gerichtliche Vertretung von Versicherungsgesellschaften und Vermietungsunternehmen.</div>
+          <span class="other-arrow">Mehr erfahren →</span>
+        </a>
+        <a href="betrugsabwehr.html" class="other-card reveal d3">
+          <div class="other-num">03</div>
+          <div class="other-title">Betrugsabwehr</div>
+          <div class="other-desc">Systematische Analyse und Abwehr unberechtigter Forderungen.</div>
+          <span class="other-arrow">Mehr erfahren →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-inner">
+      <div class="contact-text reveal">
+        <span class="sec-label">Jetzt Kontakt aufnehmen</span>
+        <h2 class="sec-heading" style="color:#fff; margin-bottom:0;">Regressforderung prüfen lassen?</h2>
+        <p class="contact-sub">Wir analysieren Ihren Regressfall und setzen berechtigte Ansprüche konsequent durch — außergerichtlich und gerichtlich.</p>
+      </div>
+      <div class="contact-actions reveal d1">
+        <a href="index.html#kontakt" class="btn-white">Nachricht senden</a>
+        <a href="tel:+4962027609080" class="btn-ghost-w">+49 6202 760 9080</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand"><img src="img/log-w.png" alt="Steinkopff &amp; Steinkopff Rechtsanwälte"></a>
+      <ul class="footer-links">
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+      </ul>
+    </div>
+    <div class="footer-bar"><div class="footer-bar-inner"><div class="footer-copy">© 2025 Steinkopff &amp; Steinkopff</div></div></div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+    document.getElementById('mobileClose').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+    document.querySelectorAll('.m-link').forEach(a => a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manuela Steinkopff · Rechtsanwältin · Steinkopff &amp; Steinkopff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:          #A8192A;
+      --red-deep:     #8A1222;
+      --red-hover:    #C41F30;
+      --red-border:   rgba(168,25,42,0.28);
+      --red-section:  #8C1220;
+      --dark:         #0f1115;
+      --white:        #ffffff;
+      --off-white:    #f7f4f0;
+      --light-warm:   #f0ece6;
+      --beige:        #e8d5b7;
+      --text:         #000000;
+      --text-muted:   #000000;
+      --border:       #e0dad3;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-w:  1200px;
+      --nav-h:  84px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h); display: flex; align-items: center; padding: 0 64px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo { display: inline-flex; align-items: center; margin-right: auto; text-decoration: none; line-height: 0; }
+    .nav-logo-image { display: block; width: auto; height: clamp(46px, 3.8vw, 60px); filter: none; }
+    .nav-links { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-muted); transition: color 0.25s; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-btn { margin-left: 8px; padding: 10px 24px; border: 1px solid var(--red-border); color: var(--red) !important; font-size: 11px !important; letter-spacing: 0.14em !important; transition: background 0.25s, color 0.25s, border-color 0.25s !important; }
+    .nav-btn:hover { background: var(--red) !important; border-color: var(--red) !important; color: #fff !important; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 1px; background: var(--text); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--dark); z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 48px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--serif); font-size: 34px; font-weight: 300; color: rgba(255,255,255,0.85); text-decoration: none; }
+    .mobile-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+
+    /* ── Page Header ── */
+    .page-header {
+      padding-top: var(--nav-h);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .page-header-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 0;
+    }
+
+    .header-text {
+      padding: 88px 64px 72px 64px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 52px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--red); }
+    .back-link::before { content: '←'; font-size: 13px; letter-spacing: 0; }
+
+    .header-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 18px;
+    }
+
+    .header-name {
+      font-family: var(--serif);
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      margin-bottom: 22px;
+    }
+
+    .header-tagline {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 380px;
+    }
+
+    .header-divider {
+      width: 44px; height: 2px;
+      background: var(--red);
+      margin: 28px 0;
+    }
+
+    .header-portrait {
+      position: relative;
+      background: #d4c8ba;
+      height: 560px;
+      overflow: hidden;
+    }
+
+    .header-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .header-portrait::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--white) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ── Bio Section ── */
+    .bio-section {
+      background: var(--white);
+      padding: 100px 64px;
+    }
+
+    .bio-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 5fr 6fr;
+      gap: 96px;
+      align-items: start;
+    }
+
+    .bio-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .bio-heading {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+
+    .bio-text p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .bio-text p:last-child { margin-bottom: 0; }
+
+    .expertise-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .expertise-item {
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: background 0.2s;
+    }
+
+    .expertise-item:last-child { border-bottom: none; }
+    .expertise-item:hover { background: var(--off-white); }
+
+    .expertise-dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .expertise-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    /* ── Fachgebiete ── */
+    .fach-section {
+      background: var(--red-section);
+      padding: 100px 64px;
+    }
+
+    .fach-inner { max-width: var(--max-w); margin: 0 auto; }
+
+    .fach-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase;
+      color: #fff; display: block; margin-bottom: 14px;
+    }
+
+    .fach-heading {
+      font-family: var(--serif); font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 300; color: #fff; margin-bottom: 60px;
+    }
+
+    .fach-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: rgba(0,0,0,0.25);
+    }
+
+    .fach-card {
+      background: rgba(0,0,0,0.22); padding: 44px 36px 38px;
+      position: relative; overflow: hidden; transition: background 0.35s;
+    }
+
+    .fach-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: rgba(255,255,255,0.35); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .fach-card:hover { background: rgba(0,0,0,0.36); }
+    .fach-card:hover::after { transform: scaleX(1); }
+
+    .fach-num {
+      font-family: var(--serif); font-size: 44px; font-weight: 300;
+      color: #fff; line-height: 1; margin-bottom: 24px; user-select: none;
+    }
+
+    .fach-card h3 {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #fff; margin-bottom: 14px;
+    }
+
+    .fach-card p { font-size: 13px; font-weight: 300; color: #fff; line-height: 1.8; }
+
+    /* ── Footer ── */
+    footer { background: #080a0e; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 44px 64px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    }
+
+    .footer-brand { display: inline-flex; align-items: center; text-decoration: none; line-height: 0; }
+    .footer-brand img { display: block; width: auto; height: clamp(56px, 5vw, 80px); filter: brightness(0) invert(1); }
+    .footer-links { display: flex; gap: 30px; list-style: none; }
+    .footer-links a { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bar { background: #080a0e; padding: 13px 64px; }
+    .footer-bar-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: flex-end; }
+    .footer-copy { font-size: 10px; color: #fff; letter-spacing: 0.06em; }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 28px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page-header-inner { grid-template-columns: 1fr; }
+      .header-text { padding: 60px 28px 48px; }
+      .header-portrait { height: 400px; }
+      .header-portrait::after { display: none; }
+      .bio-section, .fach-section { padding: 72px 28px; }
+      .bio-inner { grid-template-columns: 1fr; gap: 52px; }
+      .fach-grid { grid-template-columns: 1fr; }
+      .footer-inner { padding: 36px 28px; }
+      .footer-bar { padding: 13px 28px; }
+    }
+    /* ── Nav Dropdowns ── */
+    .has-dropdown { position: relative; }
+    .has-dropdown > a { display: inline-flex; align-items: center; gap: 6px; }
+    .has-dropdown > a::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); opacity: 0.65; transition: transform 0.22s, opacity 0.22s; }
+    .has-dropdown::after { content: ''; position: absolute; top: 100%; left: -18px; right: -18px; height: 18px; }
+    .nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; z-index: 300; min-width: 238px; padding: 8px; background: rgba(255,255,255,0.98); border: 1px solid rgba(168,25,42,0.16); box-shadow: 0 18px 50px rgba(0,0,0,0.14); opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(-50%) translateY(8px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; }
+    .has-dropdown:hover .nav-dropdown, .has-dropdown:focus-within .nav-dropdown { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .has-dropdown:hover > a::after, .has-dropdown:focus-within > a::after { transform: rotate(45deg) translateY(1px); opacity: 1; }
+    .nav-dropdown a { display: flex; align-items: center; min-height: 38px; padding: 10px 14px; font-size: 10px !important; font-weight: 500 !important; letter-spacing: 0.13em !important; text-transform: uppercase !important; color: #000 !important; text-decoration: none; white-space: nowrap; transition: color 0.2s, background 0.2s, padding-left 0.2s; border-bottom: 1px solid #f0ece6; }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover, .nav-dropdown a:focus { color: #A8192A !important; background: #f7f4f0; padding-left: 18px; outline: none; }
+    .m-sub { font-size: 20px !important; opacity: 0.5; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo" aria-label="Steinkopff &amp; Steinkopff Startseite">
+      <img src="img/log-transparent.png" alt="" class="nav-logo-image">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Start</a></li>
+      <li class="has-dropdown">
+        <a href="index.html#fachgebiete">Fachgebiete</a>
+        <div class="nav-dropdown">
+          <a href="arbeitsrecht.html">Arbeitsrecht</a>
+          <a href="verkehrsrecht.html">Verkehrsrecht</a>
+          <a href="betrugsabwehr.html">Betrugsabwehr</a>
+          <a href="regressbearbeitung.html">Regressbearbeitung</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="index.html#team" class="active">Anwälte</a>
+        <div class="nav-dropdown">
+          <a href="tilman-steinkopff.html">Tilman Steinkopff</a>
+          <a href="manuela-steinkopff.html">Manuela Steinkopff</a>
+        </div>
+      </li>
+      <li><a href="ueber-uns.html">Über uns</a></li>
+      <li><a href="kontakt.html" class="nav-btn">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="index.html"     class="m-link">Start</a>
+    <a href="index.html#fachgebiete" class="m-link">Fachgebiete</a>
+    <a href="arbeitsrecht.html" class="m-link m-sub">Arbeitsrecht</a>
+    <a href="verkehrsrecht.html" class="m-link m-sub">Verkehrsrecht</a>
+    <a href="betrugsabwehr.html" class="m-link m-sub">Betrugsabwehr</a>
+    <a href="regressbearbeitung.html" class="m-link m-sub">Regressbearbeitung</a>
+    <a href="index.html#team"        class="m-link">Anwälte</a>
+    <a href="tilman-steinkopff.html" class="m-link m-sub">Tilman Steinkopff</a>
+    <a href="manuela-steinkopff.html" class="m-link m-sub">Manuela Steinkopff</a>
+    <a href="ueber-uns.html"        class="m-link">Über uns</a>
+    <a href="index.html#kontakt"     class="m-link">Kontakt</a>
+  </div>
+
+  <!-- ── Page Header ── -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="header-text">
+        <a href="index.html#team" class="back-link">Zurück zum Team</a>
+        <div class="header-role">Rechtsanwältin &nbsp;·&nbsp; Arbeitsrecht</div>
+        <h1 class="header-name">Manuela<br>Steinkopff</h1>
+        <div class="header-divider"></div>
+        <p class="header-tagline">Spezialisierung im Arbeitsrecht mit besonderem Fokus auf die rechtssichere Interessenwahrung von Arbeitnehmern und Arbeitgebern im betrieblichen Alltag.</p>
+      </div>
+      <div class="header-portrait">
+        <img src="img/fr-st.png" alt="Manuela Steinkopff, Rechtsanwältin">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Bio + Schwerpunkte ── -->
+  <section class="bio-section">
+    <div class="bio-inner">
+
+      <div class="reveal">
+        <span class="bio-label">Biographie</span>
+        <h2 class="bio-heading">Über Manuela<br>Steinkopff</h2>
+        <div class="bio-text">
+          <p>Manuela Steinkopff ist Rechtsanwältin mit Spezialisierung im Arbeitsrecht. Ihr besonderer Fokus liegt auf der rechtssicheren Interessenwahrung von Arbeitnehmern und Arbeitgebern im betrieblichen Alltag.</p>
+          <p>Als Partnerin von Steinkopff &amp; Steinkopff Rechtsanwälte setzt sie sich mit großem Engagement für die Rechte ihrer Mandanten ein — diskret, kompetent und mit dem notwendigen Gespür für die menschliche Seite arbeitsrechtlicher Konflikte.</p>
+        </div>
+      </div>
+
+      <div class="reveal d1">
+        <span class="bio-label">Tätigkeitsschwerpunkte</span>
+        <div class="expertise-grid">
+          <div class="expertise-item">
+            <div class="expertise-dot"></div>
+            <span class="expertise-label">Interessenwahrung von Arbeitnehmern</span>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-dot"></div>
+            <span class="expertise-label">Beratung von Arbeitgebern</span>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-dot"></div>
+            <span class="expertise-label">Kündigungsschutz</span>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-dot"></div>
+            <span class="expertise-label">Abfindungsverhandlungen</span>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-dot"></div>
+            <span class="expertise-label">Mobbing und Diskriminierung am Arbeitsplatz</span>
+          </div>
+          <div class="expertise-item">
+            <div class="expertise-dot"></div>
+            <span class="expertise-label">Arbeitsrechtliche Streitigkeiten vor Gericht</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Fachgebiete ── -->
+  <section class="fach-section">
+    <div class="fach-inner">
+      <span class="fach-label reveal">Kanzlei-Fachgebiete</span>
+      <h2 class="fach-heading reveal">Spezialisierte<br>Rechtsberatung</h2>
+      <div class="fach-grid">
+        <div class="fach-card reveal d1">
+          <div class="fach-num">01</div>
+          <h3>Arbeitsrecht</h3>
+          <p>Umfassende Beratung und Vertretung in allen Fragen des individuellen und kollektiven Arbeitsrechts — für Arbeitgeber und Arbeitnehmer gleichermaßen.</p>
+        </div>
+        <div class="fach-card reveal d2">
+          <div class="fach-num">02</div>
+          <h3>Verkehrsrecht</h3>
+          <p>Gerichtliche Vertretung von Versicherungsgesellschaften und Vermietungsunternehmen. Professionelle Durchsetzung berechtigter Ansprüche.</p>
+        </div>
+        <div class="fach-card reveal d1">
+          <div class="fach-num">03</div>
+          <h3>Betrugsabwehr</h3>
+          <p>Systematische Analyse und Abwehr unberechtigter Forderungen. Frühzeitige Erkennung von Betrugsversuchen und konsequentes Handeln.</p>
+        </div>
+        <div class="fach-card reveal d2">
+          <div class="fach-num">04</div>
+          <h3>Regressbearbeitung</h3>
+          <p>Forderungsprüfung und Geltendmachung von Regressansprüchen nach Versicherungsablehnung — effizient, präzise und rechtssicher.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand" aria-label="Steinkopff &amp; Steinkopff Startseite">
+        <img src="img/log-w.png" alt="Steinkopff &amp; Steinkopff Rechtsanwälte">
+      </a>
+      <ul class="footer-links">
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+      </ul>
+    </div>
+    <div class="footer-bar">
+      <div class="footer-bar-inner">
+        <div class="footer-copy">© 2025 Steinkopff &amp; Steinkopff</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () =>
+      document.getElementById('mobileMenu').classList.add('open'));
+    document.getElementById('mobileClose').addEventListener('click', () =>
+      document.getElementById('mobileMenu').classList.remove('open'));
+    document.querySelectorAll('.m-link').forEach(a =>
+      a.addEventListener('click', () =>
+        document.getElementById('mobileMenu').classList.remove('open')));
+
+    const io = new IntersectionObserver(entries =>
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>

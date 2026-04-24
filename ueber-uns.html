@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Über uns · Steinkopff &amp; Steinkopff Rechtsanwälte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #A8192A; --red-hover: #C41F30; --red-border: rgba(168,25,42,0.28);
+      --red-section: #8C1220; --dark: #0f1115; --white: #ffffff;
+      --off-white: #f7f4f0; --light-warm: #f0ece6;
+      --text: #000000; --text-muted: #000000; --border: #e0dad3;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-w: 1200px; --nav-h: 84px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); display: flex; align-items: center; padding: 0 64px; background: rgba(255,255,255,0.97); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo { display: inline-flex; align-items: center; margin-right: auto; text-decoration: none; line-height: 0; }
+    .nav-logo-image { display: block; width: auto; height: clamp(46px,3.8vw,60px); filter: none; }
+    .nav-links { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--text-muted); transition: color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--red); }
+    .nav-btn { margin-left: 8px; padding: 10px 24px; border: 1px solid var(--red-border); color: var(--red) !important; font-size: 11px !important; letter-spacing: 0.14em !important; transition: background 0.25s, color 0.25s !important; }
+    .nav-btn:hover { background: var(--red) !important; color: #fff !important; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 1px; background: var(--text); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--dark); z-index: 199; flex-direction: column; align-items: center; justify-content: center; gap: 48px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--serif); font-size: 34px; font-weight: 300; color: #fff; text-decoration: none; }
+    .mobile-close { position: absolute; top: 28px; right: 28px; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+
+    .has-dropdown { position: relative; }
+    .has-dropdown > a { display: inline-flex; align-items: center; gap: 6px; }
+    .has-dropdown > a::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg) translateY(-2px); opacity: 0.65; transition: transform 0.22s, opacity 0.22s; }
+    .has-dropdown::after { content: ''; position: absolute; top: 100%; left: -18px; right: -18px; height: 18px; }
+    .nav-dropdown { position: absolute; top: calc(100% + 12px); left: 50%; z-index: 300; min-width: 238px; padding: 8px; background: rgba(255,255,255,0.98); border: 1px solid rgba(168,25,42,0.16); box-shadow: 0 18px 50px rgba(0,0,0,0.14); opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(-50%) translateY(8px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; }
+    .has-dropdown:hover .nav-dropdown, .has-dropdown:focus-within .nav-dropdown { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .has-dropdown:hover > a::after, .has-dropdown:focus-within > a::after { transform: rotate(45deg) translateY(1px); opacity: 1; }
+    .nav-dropdown a { display: flex; align-items: center; min-height: 38px; padding: 10px 14px; font-size: 10px !important; font-weight: 500 !important; letter-spacing: 0.13em !important; text-transform: uppercase !important; color: #000 !important; text-decoration: none; white-space: nowrap; transition: color 0.2s, background 0.2s, padding-left 0.2s; border-bottom: 1px solid #f0ece6; }
+    .nav-dropdown a:last-child { border-bottom: none; }
+    .nav-dropdown a:hover, .nav-dropdown a:focus { color: #A8192A !important; background: #f7f4f0; padding-left: 18px; outline: none; }
+    .m-sub { font-size: 20px !important; opacity: 0.72; }
+
+    .page-header { padding-top: var(--nav-h); background: var(--dark); position: relative; overflow: hidden; }
+    .page-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.72); z-index: 0; }
+    .page-overlay { position: absolute; inset: 0; background: rgba(10,10,15,0.58); z-index: 1; }
+    .page-header-inner { max-width: var(--max-w); margin: 0 auto; padding: 88px 64px 80px; display: grid; grid-template-columns: 5fr 4fr; gap: 80px; align-items: end; position: relative; z-index: 2; }
+    .header-label { font-size: 10px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; color: #fff; display: block; margin-bottom: 16px; }
+    .header-title { font-family: var(--serif); font-size: clamp(44px,5.5vw,76px); font-weight: 300; color: #fff; letter-spacing: 0.01em; line-height: 1.06; margin-bottom: 18px; }
+    .header-sub { font-size: 14px; font-weight: 300; color: #fff; line-height: 1.85; max-width: 520px; }
+    .header-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.28); }
+    .header-fact { background: rgba(0,0,0,0.28); padding: 24px; }
+    .fact-kicker { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; margin-bottom: 10px; }
+    .fact-value { font-family: var(--serif); font-size: 32px; font-weight: 300; color: #fff; line-height: 1.1; }
+
+    .section { padding: 100px 64px; }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+    .two-col { display: grid; grid-template-columns: 5fr 7fr; gap: 96px; align-items: start; }
+    .label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; color: var(--text); margin-bottom: 14px; }
+    .heading { font-family: var(--serif); font-size: clamp(30px,3.4vw,48px); font-weight: 300; line-height: 1.16; color: var(--text); margin-bottom: 28px; }
+    .text p { font-size: 15px; font-weight: 300; line-height: 1.9; color: var(--text); margin-bottom: 18px; }
+    .text p:last-child { margin-bottom: 0; }
+
+    .image-pair { display: grid; grid-template-columns: 1fr 0.78fr; gap: 18px; align-items: end; margin-top: 58px; }
+    .image-pair img { width: 100%; display: block; object-fit: cover; border: 1px solid var(--border); }
+    .image-main { aspect-ratio: 16/10; }
+    .image-side { aspect-ratio: 4/5; }
+
+    .red-section { background: var(--red-section); color: #fff; }
+    .red-section .label, .red-section .heading, .red-section p, .red-section li { color: #fff; }
+    .principles { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.24); margin-top: 56px; }
+    .principle { background: rgba(0,0,0,0.2); padding: 36px 32px; }
+    .principle-num { font-family: var(--serif); font-size: 42px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: 22px; }
+    .principle h3 { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 12px; }
+    .principle p { font-size: 13px; font-weight: 300; line-height: 1.8; }
+
+    .team-section { background: var(--off-white); }
+    .team-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 28px; margin-top: 56px; }
+    .team-card { display: grid; grid-template-columns: 180px 1fr; gap: 0; background: var(--white); border: 1px solid var(--border); text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; }
+    .team-card:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(0,0,0,0.08); }
+    .team-card img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .team-card-body { padding: 30px; }
+    .team-role { font-size: 9px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
+    .team-name { font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--text); margin-bottom: 14px; }
+    .team-desc { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--text); }
+    .team-link { display: inline-block; margin-top: 22px; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
+
+    .info-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 56px; }
+    .info-card { background: var(--white); padding: 30px 26px; }
+    .info-card span { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text); margin-bottom: 14px; }
+    .info-card p, .info-card a { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--text); text-decoration: none; }
+
+    .cta { background: var(--red-section); padding: 84px 64px; }
+    .cta-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 48px; flex-wrap: wrap; }
+    .cta .heading, .cta .label, .cta p { color: #fff; }
+    .cta p { font-size: 14px; line-height: 1.8; max-width: 440px; }
+    .btn-white { display: inline-block; padding: 15px 40px; background: #fff; color: #000; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; transition: background 0.25s, transform 0.25s; }
+    .btn-white:hover { background: var(--off-white); transform: translateY(-2px); }
+
+    footer { background: #080a0e; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; padding: 44px 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-brand { display: inline-flex; align-items: center; text-decoration: none; line-height: 0; }
+    .footer-brand img { display: block; width: auto; height: clamp(56px,5vw,80px); filter: brightness(0) invert(1); }
+    .footer-links { display: flex; gap: 30px; list-style: none; }
+    .footer-links a { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; text-decoration: none; transition: color 0.2s; }
+    .footer-bar { background: #080a0e; padding: 13px 64px; }
+    .footer-bar-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: flex-end; }
+    .footer-copy { font-size: 10px; color: #fff; letter-spacing: 0.06em; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+
+    @media (max-width: 980px) {
+      nav { padding: 0 28px; } .nav-links { display: none; } .hamburger { display: flex; }
+      .page-header-inner, .two-col { grid-template-columns: 1fr; gap: 48px; }
+      .page-header-inner, .section, .cta { padding-left: 28px; padding-right: 28px; }
+      .principles, .team-grid, .info-grid { grid-template-columns: 1fr; }
+      .team-card { grid-template-columns: 1fr; }
+      .team-card img { aspect-ratio: 4/3; }
+      .image-pair { grid-template-columns: 1fr; }
+      .footer-inner { padding: 36px 28px; }
+      .footer-bar { padding: 13px 28px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo" aria-label="Steinkopff &amp; Steinkopff Startseite"><img src="img/log-transparent.png" alt="" class="nav-logo-image"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Start</a></li>
+      <li class="has-dropdown">
+        <a href="index.html#fachgebiete">Fachgebiete</a>
+        <div class="nav-dropdown">
+          <a href="arbeitsrecht.html">Arbeitsrecht</a>
+          <a href="verkehrsrecht.html">Verkehrsrecht</a>
+          <a href="betrugsabwehr.html">Betrugsabwehr</a>
+          <a href="regressbearbeitung.html">Regressbearbeitung</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="index.html#team">Anwälte</a>
+        <div class="nav-dropdown">
+          <a href="tilman-steinkopff.html">Tilman Steinkopff</a>
+          <a href="manuela-steinkopff.html">Manuela Steinkopff</a>
+        </div>
+      </li>
+      <li><a href="ueber-uns.html" class="active">Über uns</a></li>
+      <li><a href="kontakt.html" class="nav-btn">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="index.html" class="m-link">Start</a>
+    <a href="index.html#fachgebiete" class="m-link">Fachgebiete</a>
+    <a href="arbeitsrecht.html" class="m-link m-sub">Arbeitsrecht</a>
+    <a href="verkehrsrecht.html" class="m-link m-sub">Verkehrsrecht</a>
+    <a href="betrugsabwehr.html" class="m-link m-sub">Betrugsabwehr</a>
+    <a href="regressbearbeitung.html" class="m-link m-sub">Regressbearbeitung</a>
+    <a href="index.html#team" class="m-link">Anwälte</a>
+    <a href="tilman-steinkopff.html" class="m-link m-sub">Tilman Steinkopff</a>
+    <a href="manuela-steinkopff.html" class="m-link m-sub">Manuela Steinkopff</a>
+    <a href="ueber-uns.html" class="m-link">Über uns</a>
+    <a href="kontakt.html" class="m-link">Kontakt</a>
+  </div>
+
+  <header class="page-header">
+    <video class="page-video" autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+    <div class="page-overlay"></div>
+    <div class="page-header-inner">
+      <div>
+        <span class="header-label">Über uns</span>
+        <h1 class="header-title">Kanzlei Steinkopff &amp; Steinkopff</h1>
+        <p class="header-sub">Persönliche Rechtsberatung in Oftersheim mit Schwerpunkt auf Arbeitsrecht, Verkehrsrecht, Miet- und Wohnungseigentumsrecht sowie zivilrechtlichen und wirtschaftsnahen Fragestellungen.</p>
+      </div>
+      <div class="header-facts" aria-label="Kanzlei Eckdaten">
+        <div class="header-fact"><span class="fact-kicker">Standort</span><div class="fact-value">Oftersheim</div></div>
+        <div class="header-fact"><span class="fact-kicker">Adresse</span><div class="fact-value">Scheffelstr. 1</div></div>
+        <div class="header-fact"><span class="fact-kicker">Anwälte</span><div class="fact-value">2</div></div>
+        <div class="header-fact"><span class="fact-kicker">Region</span><div class="fact-value">Rhein-Neckar</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="two-col">
+        <div class="reveal">
+          <span class="label">Profil</span>
+          <h2 class="heading">Rechtsberatung mit Nähe zum Mandat.</h2>
+        </div>
+        <div class="text reveal d1">
+          <p>Steinkopff &amp; Steinkopff Rechtsanwälte ist eine in Oftersheim ansässige Kanzlei in der Scheffelstraße 1. Die Kanzlei berät private Mandanten, Unternehmen und Versicherungen in ausgewählten Rechtsgebieten, in denen Erfahrung, sorgfältige Prüfung und klare Kommunikation besonders zählen.</p>
+          <p>Der Schwerpunkt liegt auf einer persönlichen Bearbeitung der Mandate. Mandanten erhalten keine abstrakte Massenberatung, sondern eine realistische Einschätzung, eine strukturierte Vorgehensweise und klare Aussagen zu Chancen, Risiken und nächsten Schritten.</p>
+          <p>Die Kanzlei verbindet regionale Erreichbarkeit im Rhein-Neckar-Raum mit fachlicher Spezialisierung: insbesondere im Verkehrsrecht, Miet- und Wohnungseigentumsrecht, Arbeitsrecht, Erbrecht, Bank- und Kapitalmarktrecht sowie in weiteren zivilrechtlichen Fragen.</p>
+        </div>
+      </div>
+      <div class="image-pair reveal">
+        <img src="img/kanz.png" alt="Kanzlei Steinkopff &amp; Steinkopff" class="image-main">
+        <img src="img/kanzl.png" alt="Innenansicht der Kanzlei" class="image-side">
+      </div>
+    </div>
+  </section>
+
+  <section class="section red-section">
+    <div class="section-inner">
+      <div class="two-col">
+        <div class="reveal">
+          <span class="label">Arbeitsweise</span>
+          <h2 class="heading">Konzentriert, erreichbar, verbindlich.</h2>
+        </div>
+        <div class="text reveal d1">
+          <p>Gute Rechtsberatung beginnt mit Zuhören. Erst wenn Sachverhalt, Unterlagen und Ziel des Mandats klar sind, lässt sich entscheiden, ob eine außergerichtliche Lösung, eine konsequente Anspruchsdurchsetzung oder eine gerichtliche Vertretung sinnvoll ist.</p>
+          <p>Steinkopff &amp; Steinkopff legt Wert auf verständliche Sprache und nachvollziehbare Entscheidungen. Mandanten sollen wissen, woran sie sind, welche Optionen bestehen und welcher Weg wirtschaftlich und rechtlich angemessen ist.</p>
+        </div>
+      </div>
+      <div class="principles">
+        <article class="principle reveal">
+          <div class="principle-num">01</div>
+          <h3>Präzision</h3>
+          <p>Sorgfältige Aktenanalyse, klare rechtliche Einordnung und eine Strategie, die zum konkreten Fall passt.</p>
+        </article>
+        <article class="principle reveal d1">
+          <div class="principle-num">02</div>
+          <h3>Verlässlichkeit</h3>
+          <p>Direkte Kommunikation, feste Ansprechpartner und transparente Rückmeldung zu Stand und nächsten Schritten.</p>
+        </article>
+        <article class="principle reveal d2">
+          <div class="principle-num">03</div>
+          <h3>Augenmaß</h3>
+          <p>Juristische Klarheit mit Blick auf Aufwand, Kosten, Beweisbarkeit und die praktische Wirkung einer Lösung.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section team-section">
+    <div class="section-inner">
+      <span class="label reveal">Anwälte</span>
+      <h2 class="heading reveal">Die Beratung bleibt persönlich.</h2>
+      <div class="team-grid">
+        <a href="tilman-steinkopff.html" class="team-card reveal">
+          <img src="img/hr-st.png" alt="Tilman Steinkopff">
+          <div class="team-card-body">
+            <div class="team-role">Rechtsanwalt</div>
+            <h3 class="team-name">Tilman Steinkopff</h3>
+            <p class="team-desc">Fachanwalt für Verkehrsrecht sowie Fachanwalt für Miet- und Wohnungseigentumsrecht. Tätig unter anderem im Verkehrsrecht, Mietrecht, Wohnungseigentumsrecht und angrenzenden zivilrechtlichen Fragen.</p>
+            <span class="team-link">Profil ansehen</span>
+          </div>
+        </a>
+        <a href="manuela-steinkopff.html" class="team-card reveal d1">
+          <img src="img/fr-st.png" alt="Manuela Steinkopff">
+          <div class="team-card-body">
+            <div class="team-role">Rechtsanwältin</div>
+            <h3 class="team-name">Manuela Steinkopff</h3>
+            <p class="team-desc">Berät unter anderem im Bank- und Kapitalmarktrecht, Erbrecht, Kaufrecht und Reiserecht. Die Arbeit ist geprägt von sorgfältiger Prüfung und mandantennaher Kommunikation.</p>
+            <span class="team-link">Profil ansehen</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="two-col">
+        <div class="reveal">
+          <span class="label">Standort</span>
+          <h2 class="heading">Gut erreichbar in Oftersheim.</h2>
+        </div>
+        <div class="text reveal d1">
+          <p>Die Kanzlei befindet sich in der Scheffelstraße 1 in 68723 Oftersheim und ist damit im Rhein-Neckar-Raum gut angebunden. Mandanten aus Oftersheim, Schwetzingen, Heidelberg, Mannheim und der umliegenden Region erreichen die Kanzlei unkompliziert.</p>
+          <p>Für die erste Kontaktaufnahme stehen Telefon und E-Mail zur Verfügung. Je nach Anliegen empfiehlt sich eine kurze Schilderung des Sachverhalts und die Bereitstellung relevanter Unterlagen, damit der rechtliche Rahmen zügig geprüft werden kann.</p>
+        </div>
+      </div>
+      <div class="info-grid reveal">
+        <div class="info-card"><span>Adresse</span><p>Scheffelstraße 1<br>68723 Oftersheim</p></div>
+        <div class="info-card"><span>Telefon</span><p><a href="tel:+4962027609080">+49 6202 760 9080</a></p></div>
+        <div class="info-card"><span>E-Mail</span><p><a href="mailto:kanzlei@anwalt-steinkopff.de">kanzlei@anwalt-steinkopff.de</a></p></div>
+        <div class="info-card"><span>Website</span><p><a href="https://www.anwalt-steinkopff.de">anwalt-steinkopff.de</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <span class="label">Kontakt</span>
+        <h2 class="heading">Sprechen Sie uns an.</h2>
+        <p>Schildern Sie kurz Ihr rechtliches Anliegen. Die Kanzlei prüft, welcher nächste Schritt sinnvoll ist und welche Unterlagen benötigt werden.</p>
+      </div>
+      <a href="kontakt.html" class="btn-white">Kontakt aufnehmen</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-brand"><img src="img/log-w.png" alt="Steinkopff &amp; Steinkopff Rechtsanwälte"></a>
+      <ul class="footer-links">
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+      </ul>
+    </div>
+    <div class="footer-bar"><div class="footer-bar-inner"><div class="footer-copy">© 2025 Steinkopff &amp; Steinkopff</div></div></div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+    document.getElementById('mobileClose').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+    document.querySelectorAll('.m-link').forEach(a => a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
